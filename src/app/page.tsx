@@ -9,7 +9,7 @@ export default function HomePage() {
   const [count, setCount] = useState(1)
   const [playerScore, setPlayerScore] = useState(0);
 
-  const [currentMultiplier, setCurrentMultiplier] = useState(0.5);
+  const [currentMultiplier, setCurrentMultiplier] = useState(0.3);
   const score = 0
   let hasPassed = false
 
@@ -48,6 +48,16 @@ export default function HomePage() {
         },
         {
           src: '/ship.png',
+          height: "[1/9]",
+          width: "[1/9]",
+        },
+        {
+          src: '/guildhall.png',
+          height: "[1/9]",
+          width: "[1/9]",
+        },
+        {
+          src: '/lighthouse.png',
           height: "[1/9]",
           width: "[1/9]",
         }
