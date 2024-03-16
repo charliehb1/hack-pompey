@@ -144,9 +144,10 @@ export default function HomePage() {
 
   return (
     <>
-    <div className="w-screen h-screen bg-gray-400 flex py-20 relative z-20">
+    <div className="w-screen h-screen bg-gray-400 flex relative z-20">
+      <img className="w-full h-full absolute" src="/background.png" alt="Background" />
       <div className="w-full justify-center z-30 absolute">
-        <div className="flex justify-center w-full">
+        <div className="flex justify-center w-full pt-20">
           <h1 className="text-5xl font-bold">Helicopter Hamster</h1>
         </div>
         <div className="flex justify-center w-full">
