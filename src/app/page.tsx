@@ -72,7 +72,9 @@ export default function HomePage() {
       }
     };
     const moveInterval = setInterval(() => {
-      moveObs(obs1);
+      setTimeout(() => {
+        moveObs(obs1);
+      }, 3000);
     }
     , 0.1);
 
