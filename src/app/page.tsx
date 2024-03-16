@@ -5,11 +5,11 @@ import { Fragment, useEffect, useRef, useState } from "react";
 
 export default function HomePage() {
   const [modal, setModal] = useState(false)
-  let [count, setCount] = useState(1)
+  const [count, setCount] = useState(1)
   const [playerScore, setPlayerScore] = useState(0);
 
   let currentMultiplier = 1
-  let score = 0
+  const score = 0
   let hasPassed = false
 
   useEffect(() => {
@@ -31,9 +31,9 @@ export default function HomePage() {
         }
   
 
-      obs.src = image['src'];
+      obs.src = image.src;
       obs.id = 'obs'
-      obs.className = `h-${image['height']} w-${image['width']} absolute bottom-0`;
+      obs.className = `h-${image.height} w-${image.width} absolute bottom-0`;
       obs.style.right = `${currentObsPos}px`;
       container?.appendChild(obs);
       return obs;
@@ -56,11 +56,11 @@ export default function HomePage() {
       const randomImage = images[Math.floor(Math.random() * images.length)]
       if(obs && randomImage) {
         obs.src = randomImage?.src ?? '/tower.png';
-        obs.className = `h-${randomImage['height']} w-${randomImage['width']} absolute bottom-0`;
+        obs.className = `h-${randomImage.height} w-${randomImage.width} absolute bottom-0`;
       }
     }
 
-    const moveObs = (obs: any) => {
+    const moveObs = (obs: HTMLImageElement) => {
       if (obs) {
         currentObsPos += 10 * currentMultiplier; 
         if (currentObsPos > screenWidth) {
@@ -107,7 +107,7 @@ export default function HomePage() {
       let hasCollided = false;
       if(hamster) {
         const hBox = hamster.getBoundingClientRect();
-        let oBox = obs1.getBoundingClientRect();
+        const oBox = obs1.getBoundingClientRect();
         hasCollided = !(hBox.right < oBox.left || 
           hBox.left > oBox.right || 
           hBox.bottom < oBox.top || 
