@@ -2,19 +2,20 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ImageResponse } from "next/server";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { set } from "zod";
 
 export default function HomePage() {
   const [modal, setModal] = useState(false)
   const [count, setCount] = useState(1)
   const [playerScore, setPlayerScore] = useState(0);
 
-  let currentMultiplier = 1
+  const [currentMultiplier, setCurrentMultiplier] = useState(0.5);
   const score = 0
   let hasPassed = false
 
   useEffect(() => {
     const multiplerInterval = setInterval(() => {
-      currentMultiplier += 0.0001
+      setCurrentMultiplier(currentMultiplier => currentMultiplier + 0.0001)
     }, 0.0001);
 
     let currentObsPos = 0
@@ -26,14 +27,12 @@ export default function HomePage() {
       const image =
         {
           src: '/tower.png',
-          height: 96,
-          width: 48,
+          height: "11/12",
+          width: "[1/9]",
         }
-  
-
       obs.src = image.src;
       obs.id = 'obs'
-      obs.className = `h-${image.height} w-${image.width} absolute bottom-0`;
+      obs.className = `absolute h-${image.height} bottom-0`;
       obs.style.right = `${currentObsPos}px`;
       container?.appendChild(obs);
       return obs;
@@ -44,13 +43,13 @@ export default function HomePage() {
       const images = [
         {
           src: '/tower.png',
-          height: 96,
-          width: 48,
+          height: "11/12",
+          width: "[1/9]",
         },
         {
           src: '/ship.png',
-          height: 46,
-          width: 96,
+          height: "[1/9]",
+          width: "[1/9]",
         }
       ]
       const randomImage = images[Math.floor(Math.random() * images.length)]
@@ -86,6 +85,9 @@ export default function HomePage() {
         setCount(newCount => newCount + 1)
         console.log(count)
         const hamster = document.getElementById("hamster");
+        if (currentHeight > window.innerHeight - 150) {
+          currentHeight = window.innerHeight - 150;
+        }
         currentHeight += 150;
         hamster?.animate([
           { bottom: `${currentHeight - 100}px` },
@@ -142,10 +144,10 @@ export default function HomePage() {
 
   return (
     <>
-    <div className="w-screen h-screen bg-gray-400 flex py-40 relative z-20">
+    <div className="w-screen h-screen bg-gray-400 flex py-20 relative z-20">
       <div className="w-full justify-center z-30 absolute">
         <div className="flex justify-center w-full">
-          <h1 className="text-5xl font-bold">Helicopter </h1>
+          <h1 className="text-5xl font-bold">Helicopter Hamster</h1>
         </div>
         <div className="flex justify-center w-full">
           <p className="text-2xl">Press space to jump</p>
@@ -189,7 +191,7 @@ export default function HomePage() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Multiplier: {currentMultiplier}
+                      Multiplier: {currentMultiplier.toFixed(2)}
                     </p>
                     <p className="text-sm text-gray-500">
                       Score: {playerScore}
